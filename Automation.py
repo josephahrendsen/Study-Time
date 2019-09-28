@@ -45,6 +45,7 @@ while firstUrl != urlList[i]:
     # move up the tabs
     #Debug
     #print(firstUrl)
+    time.sleep(.6)
     pag.hotkey('ctrl', 'pageup')
 
     # takes the URL of that Tab
