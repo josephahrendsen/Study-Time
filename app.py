@@ -97,16 +97,16 @@ def runAuto():
 
 def results():
     data = request.get_json(silent=True)
-    userResponse = data.get('queryResult').get('action')
-    return {'fulfillmentText': 'This is a response from webhook.'}
+    userTimeValue = str(data.get('queryResult').get('parameters')['duration']['amount'])
+    userTimeUnit = data.get('queryResult').get('parameters')['duration']['unit']
+    return {'fulfillmentText': 'Great! Study time will last for '+ userTimeValue + ' ' + userTimeUnit + "!"}
 # create a route for webhook
 # create a route for webhook
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     data = request.get_json(silent=True)
-    userResponse = data.get('queryResult').get('parameters')['userResponse']
-    if userResponse == 'Yes' or userResponse == 'Sure':
-        runAuto()
+    userResponse = data.get('queryResult').get('parameters')['duration']
+    print(userResponse)
         
     # return response
     return make_response(jsonify(results()))
