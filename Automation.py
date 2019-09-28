@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pyautogui as pag
 import time
 import pyperclip
@@ -87,3 +88,4 @@ while firstUrl != urlList[i]:
 
 
 print (urlList)
+
