@@ -19,7 +19,6 @@ print("Locating Reddit")
 # moving to reddit
 print("Mouse Position:", pag.position())
 
-pag.moveTo(61,74)
 time.sleep(3)
 a = pag.locateCenterOnScreen(r"C:\Users\Helquin\PycharmProjects\GoogleCloudHackAthon\Reddit1.PNG")
 
