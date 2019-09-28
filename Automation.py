@@ -1,7 +1,29 @@
-<<<<<<< HEAD
 import pyautogui as pag
 import time
 import pyperclip
+import datetime
+
+
+#Asking User for input
+input("Hello! When would you like to end your study session?")
+
+
+
+
+
+
+
+
+
+
+#Setting it up to work between hours
+
+
+
+
+
+
+
 
 # while loop to check each tab
 print('4')
@@ -34,7 +56,7 @@ while a == 0:
 
     else:
         firstUrl = pyperclip.paste()
-        print("Your first URL string is: " + firstUrl)
+        print(firstUrl)
         a = 1
 
 
@@ -46,6 +68,7 @@ while firstUrl != urlList[i]:
     # move up the tabs
     #Debug
     #print(firstUrl)
+    time.sleep(.6)
     pag.hotkey('ctrl', 'pageup')
 
     # takes the URL of that Tab
@@ -88,4 +111,3 @@ while firstUrl != urlList[i]:
 
 
 print (urlList)
-
