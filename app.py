@@ -10,38 +10,45 @@ app = Flask(__name__)
 
 
 def runAuto(userTime, userLevel):
-    blocked_sites = ["facebook.com", "youtube", "twitter", "reddit", "imgur", "tumblr", "coolmathgames"]
 
-    #Asking User for input
+
+
+
+    # Asking User for input
     print("Experts recommend that you take 15 minute for each study session, but you do you.")
     print("")
     timeToStudy = userTime
-    #how often do we need to check the user?
-    severityLevel = userLevel
+    #-------------------------------------------------------------------------------------------------------
+    print("Should be string")
+    print(type(timeToStudy))
+    print("No .0 min: ")
+    timeToStudy = timeToStudy.replace(".0 min", "")
+    print(timeToStudy)
+    print(type(timeToStudy))
+
+    timeToStudy = int(timeToStudy)
+    print(type(timeToStudy))
+
+    #input("STOP HAMMER TIME")
+    # how often do we need to check the user?
 
 
+    # we won't have to look for capilitization
+    severityLevel = userLevel.upper()
 
-    #we won't have to look for capilitization
-    severityLevel = severityLevel.upper()
-
-    #Take out any floating spaces.
+    # Take out any floating spaces.
     severityLevel = severityLevel.strip()
 
-
-    #integer of the severity
+    # integer of the severity
     severityLevelInt = 0
-    #switch statement for the severity
-    if severityLevel == "DEMO": 
-        severityLevelInt = 0
+    # switch statement for the severity
+
     if severityLevel == "SEVERE":
         severityLevelInt = 1
     if severityLevel == "MODERATE":
         severityLevelInt = 2
     if severityLevel == "CHILL":
         severityLevelInt = 3
-
-
-
 
     ## POUNDPOUND ARE DEBUG COMMENTS
 
@@ -63,53 +70,48 @@ def runAuto(userTime, userLevel):
     ##StartTimeString = int(StartTimeString.replace(',', ''))
     # Print the fruits of our labor
 
-    #Getting the Mins from the starting time
+    # Getting the Mins from the starting time
     StartTimeStringMin = int(StartTime.strftime('%M'))
 
-    #Add it to how long the user wants to study
+    # Add it to how long the user wants to study
 
-    #add this to the current time
-    StartTimeStringMin = StartTimeStringMin+timeToStudy
+    # add this to the current time
+    StartTimeStringMin = StartTimeStringMin + timeToStudy
 
-    #take the current hour
+    # take the current hour
     StarTimeStringHour = int(StartTime.strftime("%H"))
 
-    #if it is over the 60 mark add it to hour
-    while StartTimeStringMin>60:
-        StartTimeStringMin = StartTimeStringMin-60
+    # if it is over the 60 mark add it to hour
+    while StartTimeStringMin > 60:
+        StartTimeStringMin = StartTimeStringMin - 60
 
-        StarTimeStringHour = StarTimeStringHour+1
+        StarTimeStringHour = StarTimeStringHour + 1
 
-
-    #The year the user is in
+    # The year the user is in
     year1 = int(datetime.datetime.now().strftime("%Y"))
 
-    #The month the user is in
+    # The month the user is in
     month1 = int(datetime.datetime.now().strftime("%m"))
 
-    #The day it is
+    # The day it is
     day1 = int(datetime.datetime.now().strftime("%d"))
 
-
-
-
     # setting end time
-    endTime = datetime.datetime(year1,month1, day1, StarTimeStringHour,StartTimeStringMin)
+    endTime = datetime.datetime(year1, month1, day1, StarTimeStringHour, StartTimeStringMin)
 
     # changing the format
     endTimeString = endTime.strftime('%H,%M')
     # make it an int to compare it
     endTimeInt = int(endTimeString.replace(',', ''))
 
-    #Take the current time again
-    #Make them mesurable ints
+    # Take the current time again
+    # Make them mesurable ints
     CurrentTime = (datetime.datetime.now().strftime("%H,%M"))
-    #make it a proper int
-    CurrentTimeInt = int(CurrentTime.replace(',',''))
+    # make it a proper int
+    CurrentTimeInt = int(CurrentTime.replace(',', ''))
 
     print("the end time will be at: ", endTimeInt)
     print("The current time is: ", CurrentTimeInt)
-
 
     while endTimeInt > CurrentTimeInt:
         ##    time.sleep(1)
@@ -121,24 +123,24 @@ def runAuto(userTime, userLevel):
         ##    #turn it into an int
         ##    CurrentTimeInt = int(CurrentTime.replace(',', ''))
 
-    ##    print(CurrentTimeInt)
-        if severityLevelInt == 0:
-            severityLevelIntSec = (20)
-        #every five min
+        ##    print(CurrentTimeInt)
+        # every five min
         if severityLevelInt == 1:
-            severityLevelIntSec= (300)
-        #every 10 mins
+            severityLevelIntSec = (45)
+        # every 10 mins
         if severityLevelInt == 2:
             severityLevelIntSec = (600)
-        if severityLevelInt ==3:
-            severityLevelIntSec= (1200)
+        if severityLevelInt == 3:
+            severityLevelIntSec = (1200)
 
+
+        print("HUmmmmm intresting. ",type(severityLevelIntSec))
 
 
         time.sleep(severityLevelIntSec)
         messagebox.showinfo("CHECKUP BUTTERCUP", "go to chrome, then click okay.")
         time.sleep(.3)
-        pag.hotkey('alt','tab')
+        pag.hotkey('alt', 'tab')
         time.sleep(.3)
         firstUrl = ""
         a = 0
@@ -154,7 +156,6 @@ def runAuto(userTime, userLevel):
 
             firstUrl = pyperclip.paste()
             print(firstUrl)
-
             if "facebook.com" in firstUrl or "youtube" in firstUrl or "twitter" in firstUrl or "reddit" in firstUrl or "imgur" in firstUrl or "tumblr" in firstUrl or "coolmathgames" in firstUrl or "poptropica" in firstUrl:
                 pag.hotkey("ctrl", "w")
 
@@ -187,11 +188,6 @@ def runAuto(userTime, userLevel):
             # print(compare)
 
             # check if it is one of our NSFW sites
-            for site in blocked_sites:
-                if site in compare:
-                    pag.hotkey("ctrl", "w")
-
-            '''        
             if "facebook" in compare:
                 pag.hotkey("ctrl", "w")
             if "youtube" in compare:
@@ -208,67 +204,140 @@ def runAuto(userTime, userLevel):
                 pag.hotkey("ctrl", "w")
             if "twitter" in compare:
                 pag.hotkey("ctrl", "w")
-            '''
 
             i = i + 1
         message22 = ("We will check on you in another ", severityLevelIntSec, " Seconds")
-        messagebox.showwarning("Lets ace this thing",message22)
+        messagebox.showwarning("Lets ace this thing", message22)
+
+    # Setting it up to work between hours
+
+    # while loop to check each tab
+    ##DEBUG
+    ##print('4')
+    ##time.sleep(1)
+    ##print('3')
+    ##time.sleep(1)
+    ##print('2')
+    ##time.sleep(1)
+    ##print('1')
+    ##time.sleep(1)
+
+    ##pag.hotkey('alt', 'tab')
+    # finding out first tab that isn't NSFW
+    # firstUrl =""
+    # a = 0
+    # while a == 0:
+
+    #  pag.hotkey('ctrl', 'e')
+    #   time.sleep(.2)
+    # pag.hotkey('ctrl', 'z')
+    # time.sleep(.2)
+    # pag.hotkey('ctrl', 'a')
+    #    time.sleep(.2)
+    #   pag.hotkey('ctrl', 'c')
+
+    #  firstUrl = pyperclip.paste()
+    #    print(firstUrl)
+    # if "facebook.com" in firstUrl or"youtube" in firstUrl or "twitter" in firstUrl or "reddit" in firstUrl or "imgur" in firstUrl or "tumblr" in firstUrl or "coolmathgames" in firstUrl or "poptropica" in firstUrl:
+    #      pag.hotkey("ctrl","w")
+
+    #   else:
+    #      firstUrl = pyperclip.paste()
+    #      print(firstUrl)
+    #      a = 1
+
+    # urlList = [1]
+    # i = 0
+    # while firstUrl != urlList[i]:
+    # move up the tabs
+    # Debug
+    # print(firstUrl)
+    #   time.sleep(.6)
+    #  pag.hotkey('ctrl', 'pageup')
+
+    # takes the URL of that Tab
+    # pag.hotkey('ctrl', 'e')
+    # time.sleep(.4)
+    # pag.hotkey('ctrl', 'z')
+    # time.sleep(.4)
+    # pag.hotkey('ctrl', 'a')
+    # time.sleep(.4)
+    # pag.hotkey('ctrl', 'c')
+    # urlList.append(pyperclip.paste())
+    # compare = str(urlList[i+1])
+
+    # for Debugging
+    # print(compare)
+
+    # check if it is one of our NSFW sites
+    # if "facebook" in compare:
+    #    pag.hotkey("ctrl","w")
+    # if "youtube" in compare:
+    #   pag.hotkey("ctrl","w")
+    # if "tumblr" in compare:
+    #     pag.hotkey("ctrl","w")
+    # if "reddit" in compare:
+    #    pag.hotkey("ctrl","w")
+    # if "coolmathgames" in compare:
+    #    pag.hotkey("ctrl","w")
+    # if "imgur" in compare:
+    #    pag.hotkey("ctrl","w")
+    # if "poptropica" in compare:
+    #    pag.hotkey("ctrl","w")
+    # if "twitter" in compare:
+    #    pag.hotkey("ctrl","w")
+
+    # i = i + 1
+
+    # print (urlList)
 
 
-
-
-
-
-
-    
 # default route
 stringTime = ''
 studyLevel = ''
-time = ''
+time1 = ''
 level = ''
+
+
 def timeResults():
-    
     data = request.get_json(silent=True)
-    
+
     userTimeValue = str(data.get('queryResult').get('parameters')['duration']['amount'])
     userTimeUnit = data.get('queryResult').get('parameters')['duration']['unit']
     global stringTime
     stringTime = userTimeValue + " " + userTimeUnit
-    string = 'Great! Study time will last for '+ userTimeValue + ' ' + userTimeUnit + '! '
-    return { "fulfillmentText": string + 'Great what is the level of study that you need?'}
+    string = 'Great! Study time will last for ' + userTimeValue + ' ' + userTimeUnit + '! '
+    return {"fulfillmentText": string + 'Great what is the level of study that you need?'}
+
 
 def studyLevelResults():
     data = request.get_json(silent=True)
     global studyLevel
     studyLevel = data.get('queryResult').get('parameters')['studyLevel']
     return 1
-              
-    
-    #return {'fulfillmentText': 'Great! Study time will last for '+ userTimeValue + ' ' + userTimeUnit + "!"}
+
+    # return {'fulfillmentText': 'Great! Study time will last for '+ userTimeValue + ' ' + userTimeUnit + "!"}
+
+
 # create a route for webhook
 # create a route for webhook
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
-    
-    
     data = request.get_json(silent=True)
-    if(data.get('queryResult')['action'] == 'get_user_response'):
-        
+    if (data.get('queryResult')['action'] == 'get_user_response'):
+
         x = make_response(jsonify(timeResults()))
-        global time
-        time = stringTime
+        global time1
+        time1 = stringTime
         return x
-    elif(data.get('queryResult')['action'] == 'study_Level'):
+    elif (data.get('queryResult')['action'] == 'study_Level'):
         x = studyLevelResults()
         global level
         level = studyLevel
-        runAuto(time, level)
-    
+        runAuto(time1, level)
 
-    
-           
     # return response
-    
+
 
 if __name__ == '__main__':
     app.run()
